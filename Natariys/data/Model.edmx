@@ -1,0 +1,393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище NatariysDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="address">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="message">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sender" Type="int" Nullable="false" />
+          <Property Name="receiver" Type="int" Nullable="false" />
+          <Property Name="datetime" Type="datetime" Nullable="false" />
+          <Property Name="text" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="services">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_services">
+          <Key>
+            <PropertyRef Name="id_user" />
+            <PropertyRef Name="id_service" />
+          </Key>
+          <Property Name="id_user" Type="int" Nullable="false" />
+          <Property Name="id_service" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_role" Type="int" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="img_path" Type="nvarchar" MaxLength="500" />
+          <Property Name="first_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="sur_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_address_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="address" Type="Self.address" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="address">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_message_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="message" Type="Self.message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="message">
+              <PropertyRef Name="sender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_message_users1">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="message" Type="Self.message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="message">
+              <PropertyRef Name="receiver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_services_services">
+          <End Role="services" Type="Self.services" Multiplicity="1" />
+          <End Role="user_services" Type="Self.user_services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="services">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user_services">
+              <PropertyRef Name="id_service" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_services_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="user_services" Type="Self.user_services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user_services">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_users_role">
+          <End Role="role" Type="Self.role" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="id_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище NatariysDBModelContainer">
+          <EntitySet Name="address" EntityType="Self.address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="message" EntityType="Self.message" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="role" EntityType="Self.role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="services" EntityType="Self.services" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_services" EntityType="Self.user_services" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_address_users" Association="Self.FK_address_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="address" EntitySet="address" />
+          </AssociationSet>
+          <AssociationSet Name="FK_message_users" Association="Self.FK_message_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="message" EntitySet="message" />
+          </AssociationSet>
+          <AssociationSet Name="FK_message_users1" Association="Self.FK_message_users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="message" EntitySet="message" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_services_services" Association="Self.FK_user_services_services">
+            <End Role="services" EntitySet="services" />
+            <End Role="user_services" EntitySet="user_services" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_services_users" Association="Self.FK_user_services_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="user_services" EntitySet="user_services" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_role" Association="Self.FK_users_role">
+            <End Role="role" EntitySet="role" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NatariysDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="NatariysDBEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="address" EntityType="NatariysDBModel.address" />
+          <EntitySet Name="message" EntityType="NatariysDBModel.message" />
+          <EntitySet Name="role" EntityType="NatariysDBModel.role" />
+          <EntitySet Name="services" EntityType="NatariysDBModel.services" />
+          <EntitySet Name="users" EntityType="NatariysDBModel.users" />
+          <AssociationSet Name="FK_address_users" Association="NatariysDBModel.FK_address_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="address" EntitySet="address" />
+          </AssociationSet>
+          <AssociationSet Name="FK_message_users" Association="NatariysDBModel.FK_message_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="message" EntitySet="message" />
+          </AssociationSet>
+          <AssociationSet Name="FK_message_users1" Association="NatariysDBModel.FK_message_users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="message" EntitySet="message" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_role" Association="NatariysDBModel.FK_users_role">
+            <End Role="role" EntitySet="role" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="user_services" Association="NatariysDBModel.user_services">
+            <End Role="services" EntitySet="services" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="address">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="users" Relationship="NatariysDBModel.FK_address_users" FromRole="address" ToRole="users" />
+        </EntityType>
+        <EntityType Name="message">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sender" Type="Int32" Nullable="false" />
+          <Property Name="receiver" Type="Int32" Nullable="false" />
+          <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="users" Relationship="NatariysDBModel.FK_message_users" FromRole="message" ToRole="users" />
+          <NavigationProperty Name="users1" Relationship="NatariysDBModel.FK_message_users1" FromRole="message" ToRole="users" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="users" Relationship="NatariysDBModel.FK_users_role" FromRole="role" ToRole="users" />
+        </EntityType>
+        <EntityType Name="services">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="users" Relationship="NatariysDBModel.user_services" FromRole="services" ToRole="users" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_role" Type="Int32" Nullable="false" />
+          <Property Name="login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="img_path" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="first_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="last_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sur_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="address" Relationship="NatariysDBModel.FK_address_users" FromRole="users" ToRole="address" />
+          <NavigationProperty Name="message" Relationship="NatariysDBModel.FK_message_users" FromRole="users" ToRole="message" />
+          <NavigationProperty Name="message1" Relationship="NatariysDBModel.FK_message_users1" FromRole="users" ToRole="message" />
+          <NavigationProperty Name="role" Relationship="NatariysDBModel.FK_users_role" FromRole="users" ToRole="role" />
+          <NavigationProperty Name="services" Relationship="NatariysDBModel.user_services" FromRole="users" ToRole="services" />
+        </EntityType>
+        <Association Name="FK_address_users">
+          <End Type="NatariysDBModel.users" Role="users" Multiplicity="1" />
+          <End Type="NatariysDBModel.address" Role="address" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="address">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_message_users">
+          <End Type="NatariysDBModel.users" Role="users" Multiplicity="1" />
+          <End Type="NatariysDBModel.message" Role="message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="message">
+              <PropertyRef Name="sender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_message_users1">
+          <End Type="NatariysDBModel.users" Role="users" Multiplicity="1" />
+          <End Type="NatariysDBModel.message" Role="message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="message">
+              <PropertyRef Name="receiver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_users_role">
+          <End Type="NatariysDBModel.role" Role="role" Multiplicity="1" />
+          <End Type="NatariysDBModel.users" Role="users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="id_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_services">
+          <End Type="NatariysDBModel.services" Role="services" Multiplicity="*" />
+          <End Type="NatariysDBModel.users" Role="users" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище NatariysDBModelContainer" CdmEntityContainer="NatariysDBEntities1">
+          <EntitySetMapping Name="address">
+            <EntityTypeMapping TypeName="NatariysDBModel.address">
+              <MappingFragment StoreEntitySet="address">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="message">
+            <EntityTypeMapping TypeName="NatariysDBModel.message">
+              <MappingFragment StoreEntitySet="message">
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="receiver" ColumnName="receiver" />
+                <ScalarProperty Name="sender" ColumnName="sender" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="role">
+            <EntityTypeMapping TypeName="NatariysDBModel.role">
+              <MappingFragment StoreEntitySet="role">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="services">
+            <EntityTypeMapping TypeName="NatariysDBModel.services">
+              <MappingFragment StoreEntitySet="services">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="NatariysDBModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="sur_name" ColumnName="sur_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="img_path" ColumnName="img_path" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="id_role" ColumnName="id_role" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="user_services" TypeName="NatariysDBModel.user_services" StoreEntitySet="user_services">
+            <EndProperty Name="users">
+              <ScalarProperty Name="id" ColumnName="id_user" />
+            </EndProperty>
+            <EndProperty Name="services">
+              <ScalarProperty Name="id" ColumnName="id_service" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

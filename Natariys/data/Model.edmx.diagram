@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d8cff626f4fc4f58a751469ba7aaed00" Name="Diagram1">
+        <EntityTypeShape EntityType="NatariysDBModel.address" Width="1.5" PointX="5.25" PointY="5.25" />
+        <EntityTypeShape EntityType="NatariysDBModel.message" Width="1.5" PointX="5.25" PointY="2.25" />
+        <EntityTypeShape EntityType="NatariysDBModel.role" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="NatariysDBModel.services" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="NatariysDBModel.users" Width="1.5" PointX="3" PointY="2.625" />
+        <AssociationConnector Association="NatariysDBModel.FK_address_users" />
+        <AssociationConnector Association="NatariysDBModel.FK_message_users" />
+        <AssociationConnector Association="NatariysDBModel.FK_message_users1" />
+        <AssociationConnector Association="NatariysDBModel.FK_users_role" />
+        <AssociationConnector Association="NatariysDBModel.user_services" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

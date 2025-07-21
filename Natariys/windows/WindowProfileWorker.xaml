@@ -1,0 +1,69 @@
+﻿<Window x:Class="Natariys.windows.WindowProfileWorker"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Natariys.windows"
+        mc:Ignorable="d"
+        Title="WindowProfile" MinHeight="400" Height="0" MinWidth="820" Width="0" FontSize="18" FontWeight="SemiBold" WindowStartupLocation="CenterScreen">
+
+    <Grid Background="#eeeeee">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Top" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="190"/>
+                <ColumnDefinition Width="600"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                <Grid Width="140" Height="140" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10">
+                    <Rectangle StrokeThickness="2" Stroke="#463e36" RadiusX="5" RadiusY="5">
+                        <Rectangle.Fill>
+                            <ImageBrush x:Name="__imgProfile" ImageSource="{Binding img_path}" Stretch="UniformToFill"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Margin="0 10">
+                <TextBlock FontSize="25" TextWrapping="Wrap">
+                <Run Text="{Binding first_name}" x:Name="__firstName"/>
+                <Run Text="{Binding last_name}" x:Name="__lastName"/>
+                <Run Text="{Binding sur_name}" x:Name="__surName"/>
+                </TextBlock>
+
+                <DockPanel Margin="0 10 0 0">
+                    <StackPanel Margin="0 0 5 0">
+                        <TextBlock Height="80" Text="Адресс:"/>
+                        <TextBlock Text="Телефон:"/>
+                        <TextBlock Text="E-mail:"/>
+                        <TextBlock Text="Услуги:"/>
+                    </StackPanel>
+                    <StackPanel TextBlock.Foreground="Gray">
+                        <TextBlock Height="80" Text="{Binding address.name}" TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding phone}"/>
+                        <TextBlock Text="{Binding email}"/>
+
+                        <ListBox ItemsSource="{Binding services}" Margin="0 5" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="1" Grid.Row="4" Height="120" TextBlock.FontSize="15" TextBlock.Foreground="#463e36">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel IsEnabled="False"/>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#eee">
+                                        <TextBlock Padding="10 3" Text="{Binding name}"/>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </DockPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

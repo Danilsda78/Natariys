@@ -1,0 +1,201 @@
+﻿<Window x:Class="Natariys.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Natariys"
+        mc:Ignorable="d"
+        Title="MainWindow" MinHeight="800" Height="0" MinWidth="900" Width="1540"
+        Background="#eeeeee" FontSize="18" FontWeight="SemiBold" WindowStartupLocation="CenterScreen">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition MinHeight="135" Height="auto" />
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Background="#463e36" Style="{StaticResource TextWite}" Grid.Row="0">
+                <Grid Margin="10">
+                    <TextBlock FontSize="22" FontWeight="Bold" VerticalAlignment="Center">Натариус Онлайн</TextBlock>
+
+                    <StackPanel VerticalAlignment="Center" Name="__boxLogin" Visibility="Visible" HorizontalAlignment="Right" Width="210">
+                        <Button Content="Вход" Click="Button_Click_1"/>
+                        <Button Content="Регистрация пользователя" Margin="0 5" Click="Button_Click_RegUser"/>
+                        <Button Content="Регистрация натариуса" Click="Button_Click_RegWorker"/>
+                    </StackPanel>
+
+                    <DockPanel HorizontalAlignment="Right" Name="__boxProfile" Visibility="Collapsed">
+                        <Ellipse Width="100" Height="100" Margin="0 0 10 0" StrokeThickness="2" Stroke="Wheat">
+                            <Ellipse.Fill>
+                                <ImageBrush x:Name="__profileLogo" ImageSource="{Binding img_path}" Stretch="UniformToFill"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+
+                        <Grid Width="300">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Foreground="#fff" Grid.Column="0" TextWrapping="Wrap" Margin="0 0 5 0">
+                            <Run Name="__firstName" Text="{Binding first_name}"/>
+                            <Run Name="__lastName" Text="{Binding last_name}"/>
+                            <Run Name="__surName" Text="{Binding sur_name}"/>
+                            </TextBlock>
+
+                            <StackPanel Grid.Column="1">
+                                <Button Content="Профиль" Click="Button_Click_Profile"/>
+                                <Button Content="Сообщения" Margin="0 5" Click="Button_Click_MessageProf"/>
+                                <Button Content="Выход" Click="Button_Click_2"/>
+                            </StackPanel>
+                        </Grid>
+                    </DockPanel>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="283"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" Margin="10">
+                    <StackPanel>
+                        <TextBlock Text="Поиск" FontSize="22" FontWeight="Bold" TextAlignment="Center" Margin="0 0 0 10"/>
+                        <StackPanel>
+                            <DockPanel>
+                                <TextBlock Text="Адрес:" Width="80"/>
+                                <TextBox Name="__address" TextChanged="TextBox_SerchChanged"/>
+                            </DockPanel>
+                            <DockPanel Margin="0 5 0 0">
+                                <TextBlock Text="ФИО:" Width="80"/>
+                                <TextBox Name="__name" TextChanged="TextBox_SerchChanged"/>
+                            </DockPanel>
+                            <DockPanel Margin="0 5 0 0">
+                                <TextBlock Text="Телефон:" Width="80"/>
+                                <TextBox Name="__phone" TextChanged="TextBox_SerchChanged"/>
+                            </DockPanel>
+                            <DockPanel Margin="0 5">
+                                <TextBlock Text="E-mail:" Width="80"/>
+                                <TextBox Name="__email" TextChanged="TextBox_SerchChanged"/>
+                            </DockPanel>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <TextBlock Text="Услуги" TextAlignment="Center"/>
+                            <ListBox Name="__serchList" Margin="0 5" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="1" Grid.Row="4" Height="200" TextBlock.FontSize="15" TextBlock.Foreground="#463e36">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel IsEnabled="False"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#eee">
+                                            <TextBlock Padding="10 3" Text="{Binding name}"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <Button Content="Изменить" Padding="2" Click="Button_Click_FilterServ" FontSize="15"/>
+                        </StackPanel>
+                        <Button Content="Очистить" Margin="0 30 0 0" Click="Button_Click_ClearFilter"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0 5 5 5" x:Name="__list">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel ItemWidth="580"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#463e36" BorderThickness="2" Padding="5" Width="570">
+                                    <Grid Margin="0 5 0 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Rectangle Height="100" StrokeThickness="2" Stroke="#463e36" RadiusX="10" RadiusY="10" Grid.Row="0" VerticalAlignment="Top">
+                                                <Rectangle.Fill>
+                                                    <ImageBrush ImageSource="{Binding img_path}" Stretch="UniformToFill"/>
+                                                </Rectangle.Fill>
+                                            </Rectangle>
+
+                                            <Button Tag="{Binding id}" Click="Button_Click_Message" Content="Написать" Grid.Row="2"/>
+                                        </Grid>
+
+                                        <Grid Grid.Column="1" Margin="5 0 0 0" Style="{StaticResource TextList}">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" MinWidth="90"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.Resources>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="FontSize" Value="15"/>
+                                                </Style>
+                                            </Grid.Resources>
+
+                                            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" FontSize="18">
+                                            <Run Text="{Binding first_name}"/>
+                                            <Run Text="{Binding last_name}"/>
+                                            <Run Text="{Binding sur_name}"/>
+                                            </TextBlock>
+
+                                            <TextBlock Grid.Row="1" Text="Адресс:" Height="45"/>
+                                            <TextBlock Grid.Row="2" Text="Телефон:"/>
+                                            <TextBlock Grid.Row="3" Text="E-mail:"/>
+                                            <TextBlock Grid.Row="4" Text="Услуги:"/>
+
+                                            <TextBlock Text="{Binding Address}" Grid.Row="1" Height="40" Grid.Column="1" Foreground="Gray" TextWrapping="Wrap"/>
+                                            <TextBlock Text="{Binding Phone}" Grid.Row="2" Grid.Column="1" Foreground="Gray"/>
+                                            <TextBlock Text="{Binding Email}" Grid.Row="3" Grid.Column="1" Foreground="Gray"/>
+                                            <ListBox ItemsSource="{Binding Services}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="1" Grid.Row="4" Height="100" TextBlock.FontSize="15" TextBlock.Foreground="#463e36">
+                                                <ListBox.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel IsEnabled="False"/>
+                                                    </ItemsPanelTemplate>
+                                                </ListBox.ItemsPanel>
+
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Border Background="#eee">
+                                                            <TextBlock Padding="10 3" Text="{Binding name}" FontSize="12"/>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    
+                    </ListBox>
+                </Grid>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</Window>

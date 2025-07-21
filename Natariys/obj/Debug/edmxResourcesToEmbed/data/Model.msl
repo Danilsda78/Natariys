@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище NatariysDBModelContainer" CdmEntityContainer="NatariysDBEntities1">
+    <EntitySetMapping Name="address">
+      <EntityTypeMapping TypeName="NatariysDBModel.address">
+        <MappingFragment StoreEntitySet="address">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="message">
+      <EntityTypeMapping TypeName="NatariysDBModel.message">
+        <MappingFragment StoreEntitySet="message">
+          <ScalarProperty Name="text" ColumnName="text" />
+          <ScalarProperty Name="datetime" ColumnName="datetime" />
+          <ScalarProperty Name="receiver" ColumnName="receiver" />
+          <ScalarProperty Name="sender" ColumnName="sender" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="role">
+      <EntityTypeMapping TypeName="NatariysDBModel.role">
+        <MappingFragment StoreEntitySet="role">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="services">
+      <EntityTypeMapping TypeName="NatariysDBModel.services">
+        <MappingFragment StoreEntitySet="services">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="NatariysDBModel.users">
+        <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="sur_name" ColumnName="sur_name" />
+          <ScalarProperty Name="last_name" ColumnName="last_name" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="img_path" ColumnName="img_path" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="id_role" ColumnName="id_role" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="user_services" TypeName="NatariysDBModel.user_services" StoreEntitySet="user_services">
+      <EndProperty Name="users">
+        <ScalarProperty Name="id" ColumnName="id_user" />
+      </EndProperty>
+      <EndProperty Name="services">
+        <ScalarProperty Name="id" ColumnName="id_service" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
